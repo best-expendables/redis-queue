@@ -26,8 +26,8 @@ imports:
   subpackages:
   - ext
   - log
-- name: github.com/satori/go.uuid
-  version: 36e9d2ebbde5e3f13ab2e25625fd453271d6522e
+- name: github.com/gofrs/uuid
+  version: 6b08a5c5172ba18946672b49749cde22873dd7c2
 - name: github.com/jinzhu/gorm
   version: 6ed508ec6a4ecb3531899a69cbc746ccf65a4166
 - name: github.com/jinzhu/inflection
