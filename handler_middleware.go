@@ -1,8 +1,9 @@
 package redisqueue
 
 import (
-	"bitbucket.org/snapmartinc/logger"
 	"context"
+
+	"bitbucket.org/snapmartinc/logger"
 )
 
 type HandleFunc func(context.Context, Job) error
@@ -22,35 +23,35 @@ func LogJob(next HandleFunc) HandleFunc {
 	}
 }
 
-func Gorm(dbConn *gorm.DB) func(next HandleFunc) HandleFunc {
-	return func(next HandleFunc) HandleFunc {
-		return func(ctx context.Context, job Job) error {
-			dbConn = nrcontext.SetTxnToGorm(ctx, dbConn)
-			ctx = SetGormToContext(ctx, dbConn)
+// func Gorm(dbConn *gorm.DB) func(next HandleFunc) HandleFunc {
+// 	return func(next HandleFunc) HandleFunc {
+// 		return func(ctx context.Context, job Job) error {
+// 			dbConn = nrcontext.SetTxnToGorm(ctx, dbConn)
+// 			ctx = SetGormToContext(ctx, dbConn)
 
-			return next(ctx, job)
-		}
-	}
-}
+// 			return next(ctx, job)
+// 		}
+// 	}
+// }
 
-func WithTransaction(dbConn *gorm.DB) func(next HandleFunc) HandleFunc {
-	return func(next HandleFunc) HandleFunc {
-		return func(ctx context.Context, job Job) error {
-			txn := dbConn.Begin()
-			if txn.Error != nil {
-				return txn.Error
-			}
-			SetGormToContext(ctx, nrcontext.SetTxnToGorm(ctx, txn))
+// func WithTransaction(dbConn *gorm.DB) func(next HandleFunc) HandleFunc {
+// 	return func(next HandleFunc) HandleFunc {
+// 		return func(ctx context.Context, job Job) error {
+// 			txn := dbConn.Begin()
+// 			if txn.Error != nil {
+// 				return txn.Error
+// 			}
+// 			SetGormToContext(ctx, nrcontext.SetTxnToGorm(ctx, txn))
 
-			err := next(ctx, job)
-			if err != nil {
-				return txn.Rollback().Error
-			}
+// 			err := next(ctx, job)
+// 			if err != nil {
+// 				return txn.Rollback().Error
+// 			}
 
-			return txn.Commit().Error
-		}
-	}
-}
+// 			return txn.Commit().Error
+// 		}
+// 	}
+// }
 
 func chainHandlerMiddleWares(middlewares []HandlerMiddleWare, h HandleFunc) HandleFunc {
 	if len(middlewares) == 0 {
