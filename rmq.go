@@ -19,9 +19,8 @@ func NewRmqConn(redisConn *redis.Client) (rmq.Connection, error) {
 
 // NewRmqConnFromRedisConfig returns a connection to RedisQueue using redisConfig
 func NewRmqConnFromRedisConfig(redisConfig *RedisConfig) (rmq.Connection, error) {
-	options := redis.FailoverOptions{
-		MasterName:         redisConfig.RedisMaster,
-		SentinelAddrs:      []string{redisConfig.GetSentinelAddress()},
+	options := redis.Options{
+		Addr:               redisConfig.GetSentinelAddress(),
 		MaxRetries:         10,
 		DialTimeout:        time.Minute,
 		ReadTimeout:        time.Minute,
@@ -32,7 +31,7 @@ func NewRmqConnFromRedisConfig(redisConfig *RedisConfig) (rmq.Connection, error)
 		IdleCheckFrequency: time.Second * 10,
 	}
 
-	redisClient := redis.NewFailoverClient(&options)
+	redisClient := redis.NewClient(&options)
 
 	return NewRmqConn(redisClient)
 }
