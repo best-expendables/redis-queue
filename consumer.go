@@ -8,6 +8,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"runtime/debug"
 	"time"
 )
 
@@ -48,7 +50,8 @@ func (consumer *defaultConsumer) Consume(delivery rmq.Delivery) {
 
 	defer func() {
 		if r := recover(); r != nil {
-			consumer.recoverPanic(r, handlerInstance, ctx, job, delivery)
+			errMsg := fmt.Sprintf("panic: %v; stack trace: %v", r, debug.Stack())
+			consumer.recoverPanic(errMsg, handlerInstance, ctx, job, delivery)
 		}
 	}()
 
