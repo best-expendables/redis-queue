@@ -50,7 +50,7 @@ func (consumer *defaultConsumer) Consume(delivery rmq.Delivery) {
 
 	defer func() {
 		if r := recover(); r != nil {
-			errMsg := fmt.Sprintf("panic: %v; stack trace: %v", r, debug.Stack())
+			errMsg := fmt.Sprintf("panic: %v; stack trace: %v", r, string(debug.Stack()))
 			consumer.recoverPanic(errMsg, handlerInstance, ctx, job, delivery)
 		}
 	}()
