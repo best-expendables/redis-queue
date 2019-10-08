@@ -96,6 +96,7 @@ func (job *RedisJob) GetAttempts() int {
 }
 
 func (job *RedisJob) Fail(err error) {
+	job.Attempts = 0
 	job.Error = err.Error()
 	job.Failed = true
 }
