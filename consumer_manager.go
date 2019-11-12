@@ -70,6 +70,7 @@ func (cm *consumerManager) Add(queueName string, consumer rmq.Consumer) {
 // pollDuration indicates how long should consumers wait before checking for tasks in the queue
 func (cm *consumerManager) StartConsuming(queueName string, replicas int, pollDuration time.Duration) {
 	cm.mutex.Lock()
+	defer cm.mutex.Unlock()
 	consumer, exists := cm.consumers[queueName]
 	if !exists {
 		panic(fmt.Errorf("there is no consumer for queue `%s`", queueName))
@@ -90,7 +91,6 @@ func (cm *consumerManager) StartConsuming(queueName string, replicas int, pollDu
 	for i := 0; i < replicas; i++ {
 		cm.queues[queueName].AddConsumer(fmt.Sprintf("%v_%d", consumerName, i), consumer)
 	}
-	cm.mutex.Unlock()
 }
 
 // NewConsumerManager.StopConsuming stops consume on the queue
