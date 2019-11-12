@@ -6,6 +6,7 @@ import (
 
 	"bitbucket.org/snapmartinc/rmq"
 	"github.com/go-redis/redis"
+	"sync"
 )
 
 type ConsumerManager interface {
@@ -18,6 +19,7 @@ type consumerManager struct {
 	conn      rmq.Connection
 	consumers map[string]rmq.Consumer
 	queues    map[string]rmq.Queue
+	mutex     *sync.Mutex
 }
 
 func init() {
@@ -32,36 +34,42 @@ func NewConsumerManager() (ConsumerManager, error) {
 }
 
 func NewConsumerManagerFromConfig(conf *RedisConfig) (ConsumerManager, error) {
+	var mutex sync.Mutex
 	conn, err := NewRmqConnFromRedisConfig(conf)
 	if err != nil {
 		return nil, err
 	}
-
 	return &consumerManager{
 			conn:      conn,
 			consumers: make(map[string]rmq.Consumer),
 			queues:    make(map[string]rmq.Queue),
+			mutex:     &mutex,
 		},
 		nil
 }
 
 func NewConsumerManagerWithConnection(conn rmq.Connection) ConsumerManager {
+	var mutex sync.Mutex
 	return &consumerManager{
 		conn:      conn,
 		consumers: make(map[string]rmq.Consumer),
 		queues:    make(map[string]rmq.Queue),
+		mutex:     &mutex,
 	}
 }
 
 // NewConsumerManager.Add adds consumer to the passed queue
 func (cm *consumerManager) Add(queueName string, consumer rmq.Consumer) {
+	cm.mutex.Lock()
 	cm.consumers[queueName] = consumer
+	cm.mutex.Unlock()
 }
 
 // NewConsumerManager.StartConsuming starts consuming the passed queueName
 // replicas indicates how many consumers will be added
 // pollDuration indicates how long should consumers wait before checking for tasks in the queue
 func (cm *consumerManager) StartConsuming(queueName string, replicas int, pollDuration time.Duration) {
+	cm.mutex.Lock()
 	consumer, exists := cm.consumers[queueName]
 	if !exists {
 		panic(fmt.Errorf("there is no consumer for queue `%s`", queueName))
@@ -82,6 +90,7 @@ func (cm *consumerManager) StartConsuming(queueName string, replicas int, pollDu
 	for i := 0; i < replicas; i++ {
 		cm.queues[queueName].AddConsumer(fmt.Sprintf("%v_%d", consumerName, i), consumer)
 	}
+	cm.mutex.Unlock()
 }
 
 // NewConsumerManager.StopConsuming stops consume on the queue
