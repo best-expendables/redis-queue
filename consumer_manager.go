@@ -18,8 +18,8 @@ type ConsumerManager interface {
 type consumerManager struct {
 	conn      rmq.Connection
 	consumers map[string]rmq.Consumer
-	queues    map[string]rmq.Queue
 	mutex     *sync.Mutex
+	queues    map[string]rmq.Queue
 }
 
 func init() {
@@ -34,7 +34,6 @@ func NewConsumerManager() (ConsumerManager, error) {
 }
 
 func NewConsumerManagerFromConfig(conf *RedisConfig) (ConsumerManager, error) {
-	var mutex sync.Mutex
 	conn, err := NewRmqConnFromRedisConfig(conf)
 	if err != nil {
 		return nil, err
@@ -42,27 +41,24 @@ func NewConsumerManagerFromConfig(conf *RedisConfig) (ConsumerManager, error) {
 	return &consumerManager{
 			conn:      conn,
 			consumers: make(map[string]rmq.Consumer),
+			mutex:     &sync.Mutex{},
 			queues:    make(map[string]rmq.Queue),
-			mutex:     &mutex,
 		},
 		nil
 }
 
 func NewConsumerManagerWithConnection(conn rmq.Connection) ConsumerManager {
-	var mutex sync.Mutex
 	return &consumerManager{
 		conn:      conn,
 		consumers: make(map[string]rmq.Consumer),
+		mutex:     &sync.Mutex{},
 		queues:    make(map[string]rmq.Queue),
-		mutex:     &mutex,
 	}
 }
 
 // NewConsumerManager.Add adds consumer to the passed queue
 func (cm *consumerManager) Add(queueName string, consumer rmq.Consumer) {
-	cm.mutex.Lock()
 	cm.consumers[queueName] = consumer
-	cm.mutex.Unlock()
 }
 
 // NewConsumerManager.StartConsuming starts consuming the passed queueName
