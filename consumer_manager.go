@@ -6,6 +6,7 @@ import (
 
 	"bitbucket.org/snapmartinc/rmq"
 	"github.com/go-redis/redis"
+	"sync"
 )
 
 type ConsumerManager interface {
@@ -17,6 +18,7 @@ type ConsumerManager interface {
 type consumerManager struct {
 	conn      rmq.Connection
 	consumers map[string]rmq.Consumer
+	mutex     *sync.Mutex
 	queues    map[string]rmq.Queue
 }
 
@@ -36,10 +38,10 @@ func NewConsumerManagerFromConfig(conf *RedisConfig) (ConsumerManager, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return &consumerManager{
 			conn:      conn,
 			consumers: make(map[string]rmq.Consumer),
+			mutex:     &sync.Mutex{},
 			queues:    make(map[string]rmq.Queue),
 		},
 		nil
@@ -49,6 +51,7 @@ func NewConsumerManagerWithConnection(conn rmq.Connection) ConsumerManager {
 	return &consumerManager{
 		conn:      conn,
 		consumers: make(map[string]rmq.Consumer),
+		mutex:     &sync.Mutex{},
 		queues:    make(map[string]rmq.Queue),
 	}
 }
@@ -62,6 +65,8 @@ func (cm *consumerManager) Add(queueName string, consumer rmq.Consumer) {
 // replicas indicates how many consumers will be added
 // pollDuration indicates how long should consumers wait before checking for tasks in the queue
 func (cm *consumerManager) StartConsuming(queueName string, replicas int, pollDuration time.Duration) {
+	cm.mutex.Lock()
+	defer cm.mutex.Unlock()
 	consumer, exists := cm.consumers[queueName]
 	if !exists {
 		panic(fmt.Errorf("there is no consumer for queue `%s`", queueName))
