@@ -11,7 +11,7 @@ require (
 	github.com/adjust/gocheck v0.0.0-20131111155431-fbc315b36e0e
 	github.com/adjust/uniuri v0.0.0-20130923163420-498743145e60
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd
-	github.com/go-redis/redis v6.15.6+incompatible
+	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/jinzhu/gorm v1.9.11
 	github.com/jinzhu/inflection v1.0.0

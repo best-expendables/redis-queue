@@ -5,6 +5,7 @@ import (
 
 	"bitbucket.org/snapmartinc/logger"
 	nrcontext "bitbucket.org/snapmartinc/newrelic-context"
+	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
 )
 
@@ -50,6 +51,16 @@ func NewRelicGormWithTransaction(dbConn *gorm.DB) func(next HandleFunc) HandleFu
 			}
 
 			return txn.Commit().Error
+		}
+	}
+}
+
+func NewRelicToRedis(c *redis.Client) func(next HandleFunc) HandleFunc {
+	return func(next HandleFunc) HandleFunc {
+		return func(ctx context.Context, job Job) error {
+			redisClientWithNR := nrcontext.WrapRedisClient(ctx, c)
+			ctx = SetRedisClientToContext(ctx, redisClientWithNR)
+			return next(ctx, job)
 		}
 	}
 }
