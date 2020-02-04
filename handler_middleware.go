@@ -2,11 +2,13 @@ package redisqueue
 
 import (
 	"context"
+	"fmt"
 
 	"bitbucket.org/snapmartinc/logger"
 	nrcontext "bitbucket.org/snapmartinc/newrelic-context"
 	"github.com/go-redis/redis"
 	"github.com/jinzhu/gorm"
+	newrelic "github.com/newrelic/go-agent"
 )
 
 type HandleFunc func(context.Context, Job) error
@@ -23,6 +25,22 @@ func LogJob(next HandleFunc) HandleFunc {
 		logEntry.WithFields(meta).Info("Log consuming job")
 
 		return next(ctx, job)
+	}
+}
+
+func WithNewRelicForConsumer(nrApp newrelic.Application) func(next HandleFunc) HandleFunc {
+	return func(next HandleFunc) HandleFunc {
+		return func(ctx context.Context, job Job) error {
+			nrTxn := nrApp.StartTransaction(fmt.Sprintf("%s:%s", "redis-queue-", job.GetQueue()), nil, nil)
+			_ = nrTxn.AddAttribute(logger.FieldTraceId, job.GetTraceID())
+			_ = nrTxn.AddAttribute(logger.FieldUserId, job.GetUserID())
+			_ = nrTxn.AddAttribute("entityId", job.GetID())
+			defer func() {
+				_ = nrTxn.End()
+			}()
+			ctx = newrelic.NewContext(ctx, nrTxn)
+			return next(ctx, job)
+		}
 	}
 }
 
