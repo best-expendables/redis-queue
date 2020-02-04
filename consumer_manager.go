@@ -2,11 +2,11 @@ package redisqueue
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"bitbucket.org/snapmartinc/rmq"
 	"github.com/go-redis/redis"
-	"sync"
 )
 
 type ConsumerManager interface {

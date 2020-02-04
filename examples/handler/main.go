@@ -71,7 +71,7 @@ func main() {
 		[]redisqueue.FailHandler{redisqueue.LogFailedJob},
 		[]redisqueue.HandlerMiddleWare{
 			redisqueue.LogJob,
-			//redisqueue.Gorm(gorm.Db)
+			//redisqueue.NewRelicToGorm(gorm.Db)
 		},
 	),
 	)
