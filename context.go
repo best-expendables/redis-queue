@@ -7,10 +7,11 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-type contextKey int
+type gormKey int
+type redisClientKey int
 
-const gormContextKey contextKey = 0
-const redisContextKey contextKey = 0
+const gormContextKey gormKey = iota
+const redisContextKey redisClientKey = iota
 
 func SetGormToContext(ctx context.Context, dbConn *gorm.DB) context.Context {
 	return context.WithValue(ctx, gormContextKey, dbConn)
