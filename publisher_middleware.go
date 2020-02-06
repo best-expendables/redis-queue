@@ -15,10 +15,12 @@ func WithNewRelicTransaction() PublisherHandlerMiddleWare {
 	return func(next PublisherHandlerFunc) PublisherHandlerFunc {
 		return func(ctx context.Context, job Job) error {
 			txn := newrelic.FromContext(ctx)
-			segment := newrelic.StartSegment(txn, fmt.Sprintf("%s-%s", job.GetQueue(), job.GetID()))
-			defer func() {
-				_ = segment.End()
-			}()
+			if txn != nil {
+				segment := newrelic.StartSegment(txn, fmt.Sprintf("%s-%s", job.GetQueue(), job.GetID()))
+				defer func() {
+					_ = segment.End()
+				}()
+			}
 			return next(ctx, job)
 		}
 	}
