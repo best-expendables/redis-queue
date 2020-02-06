@@ -1,16 +1,16 @@
 package redisqueue
 
 import (
-	"bitbucket.org/snapmartinc/logger"
-	"bitbucket.org/snapmartinc/rmq"
-	"bitbucket.org/snapmartinc/trace"
-	"bitbucket.org/snapmartinc/user-service-client"
 	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"runtime/debug"
-	"time"
+
+	"bitbucket.org/snapmartinc/logger"
+	"bitbucket.org/snapmartinc/rmq"
+	"bitbucket.org/snapmartinc/trace"
+	userclient "bitbucket.org/snapmartinc/user-service-client"
 )
 
 type defaultConsumer struct {
@@ -57,7 +57,6 @@ func (consumer *defaultConsumer) Consume(delivery rmq.Delivery) {
 
 	defaultHandlerFunc := HandleFunc(func(ctx context.Context, j Job) error {
 		handlerInstance = consumer.handlerFactory(ctx)
-
 		return handlerInstance.Handle(ctx, j)
 	})
 
@@ -70,8 +69,7 @@ func (consumer *defaultConsumer) Consume(delivery rmq.Delivery) {
 		} else {
 			if handlerInstance.ShouldRetryOnError(err) {
 				job.Retry(err)
-				timeToProcess := consumer.getTimeToProcessJob(job.Delay())
-				consumer.publisher.PublishOnDelay(job.GetQueue(), job, timeToProcess)
+				consumer.publisher.PublishOnDelay(ctx, job)
 				//Need to call Ack() on delivery to remove the delivery from unacked queue
 				//Because job will be repushed to redis again, current processing job need to be deleted
 				delivery.Ack()
@@ -82,10 +80,6 @@ func (consumer *defaultConsumer) Consume(delivery rmq.Delivery) {
 	} else {
 		consumer.failDelivery(ctx, handlerInstance, job, delivery, ErrJobExceedRetryTimes)
 	}
-}
-
-func (consumer *defaultConsumer) getTimeToProcessJob(timeDurationInSecond int) time.Time {
-	return time.Now().Add(time.Duration(timeDurationInSecond) * time.Second)
 }
 
 func (consumer *defaultConsumer) failDelivery(ctx context.Context, h Handler, job Job, delivery rmq.Delivery, err error) {
@@ -99,10 +93,10 @@ func (consumer *defaultConsumer) failDelivery(ctx context.Context, h Handler, jo
 	// In that case, the job will be push to rejected queue
 	if h != nil {
 		if h.ShouldRejectOnFailure(err) {
-			consumer.publisher.PublishRejected(job)
+			consumer.publisher.PublishRejected(ctx, job)
 		}
 	} else {
-		consumer.publisher.PublishRejected(job)
+		consumer.publisher.PublishRejected(ctx, job)
 	}
 
 	//Delete current processing job from redis
