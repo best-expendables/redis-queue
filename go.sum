@@ -6,6 +6,8 @@ bitbucket.org/snapmartinc/newrelic-context v0.0.0-20191031085227-8f28a24710be h1
 bitbucket.org/snapmartinc/newrelic-context v0.0.0-20191031085227-8f28a24710be/go.mod h1:BgjDhAf4r1LjL6CBHJdzBd2mxOiGEkMyn7WL9Gto+m8=
 bitbucket.org/snapmartinc/rmq v0.0.0-20190722105556-8288c6798f3a h1:ZaYs4nodaHGCeG6ZxYkWWH/AZd0VrmZyM/EExSTe9lA=
 bitbucket.org/snapmartinc/rmq v0.0.0-20190722105556-8288c6798f3a/go.mod h1:jAhN4r9nFVFwKop5aXHgT9onAypTNTGoiH7H+Q4QkW0=
+bitbucket.org/snapmartinc/rmq v0.0.0-20200408055032-faf0d86936aa h1:aGpiL4OB3+AAYvKDM6wzkj17QcFHe9Rf7c+yG+BoCY8=
+bitbucket.org/snapmartinc/rmq v0.0.0-20200408055032-faf0d86936aa/go.mod h1:Hl4woBPZJgPswCYe2zz/pCVlZf61NiD3jO/9GgGL6Rg=
 bitbucket.org/snapmartinc/trace v0.0.0-20190722092156-0291aa47f02f h1:MZbkA8ohvsBaWXUqm7xXiHiAcBwSUtDuyFtKwmiVpGY=
 bitbucket.org/snapmartinc/trace v0.0.0-20190722092156-0291aa47f02f/go.mod h1:5VBPCRkhGhcyf8gz++0RlbWQHkeSD5P4eGyijOe2rgU=
 bitbucket.org/snapmartinc/trace v0.0.0-20190925102910-0918afc8a51f h1:IRpHZzHZv8tbM0d4cL8Vhihm0DNMEffnFHMQmGI+wxs=

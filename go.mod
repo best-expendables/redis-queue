@@ -6,7 +6,7 @@ require (
 	bitbucket.org/snapmartinc/eventbus-client v1.0.1 // indirect
 	bitbucket.org/snapmartinc/logger v0.0.0-20190722102907-70e1fed01587
 	bitbucket.org/snapmartinc/newrelic-context v0.0.0-20191031085227-8f28a24710be
-	bitbucket.org/snapmartinc/rmq v0.0.0-20190722105556-8288c6798f3a
+	bitbucket.org/snapmartinc/rmq v0.0.0-20200408055032-faf0d86936aa
 	bitbucket.org/snapmartinc/trace v0.0.0-20190925102910-0918afc8a51f
 	bitbucket.org/snapmartinc/user-service-client v0.0.0-20190722090724-5a6f104cf969
 	github.com/adjust/gocheck v0.0.0-20131111155431-fbc315b36e0e
