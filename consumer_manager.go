@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"bitbucket.org/snapmartinc/rmq"
-	"github.com/go-redis/redis/v7"
+	"github.com/go-redis/redis/v8"
 )
 
 type ConsumerManager interface {
