@@ -2,7 +2,7 @@ package redisqueue
 
 import (
 	"bitbucket.org/snapmartinc/rmq"
-	"github.com/go-redis/redis/v7"
+	"github.com/go-redis/redis/v8"
 	"time"
 )
 
