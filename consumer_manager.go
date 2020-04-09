@@ -2,6 +2,9 @@ package redisqueue
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
+	"os"
 	"sync"
 	"time"
 
@@ -23,8 +26,10 @@ type consumerManager struct {
 }
 
 func init() {
+	logger := log.New(os.Stderr, "redis: ", log.LstdFlags|log.Lshortfile)
 	//Turn off go-redis log
-	redis.SetLogger(nil)
+	logger.SetOutput(ioutil.Discard)
+	redis.SetLogger(logger)
 }
 
 // NewConsumerManager returns a ConsumerManager
