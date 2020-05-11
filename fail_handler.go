@@ -1,7 +1,7 @@
 package redisqueue
 
 import (
-	"bitbucket.org/snapmartinc/logger"
+	"github.com/best-expendables/logger"
 	"context"
 )
 

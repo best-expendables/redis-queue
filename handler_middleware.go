@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"bitbucket.org/snapmartinc/logger"
-	nrcontext "bitbucket.org/snapmartinc/newrelic-context"
+	"github.com/best-expendables/logger"
+	nrcontext "github.com/best-expendables/newrelic-context"
 	"github.com/go-redis/redis/v8"
 	"github.com/jinzhu/gorm"
 	newrelic "github.com/newrelic/go-agent"

@@ -7,10 +7,10 @@ import (
 	"fmt"
 	"runtime/debug"
 
-	"bitbucket.org/snapmartinc/logger"
-	"bitbucket.org/snapmartinc/rmq"
-	"bitbucket.org/snapmartinc/trace"
-	userclient "bitbucket.org/snapmartinc/user-service-client"
+	"github.com/best-expendables/logger"
+	"github.com/best-expendables/rmq"
+	"github.com/best-expendables/trace"
+	userclient "github.com/best-expendables/user-service-client"
 )
 
 type defaultConsumer struct {

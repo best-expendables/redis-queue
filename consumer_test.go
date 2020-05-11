@@ -1,7 +1,7 @@
 package redisqueue_test
 
 import (
-	"bitbucket.org/snapmartinc/rmq"
+	"github.com/best-expendables/rmq"
 	"context"
 	"encoding/json"
 	"errors"

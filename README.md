@@ -3,7 +3,7 @@
 ### Install
 ```yaml
 import:
-- package: bitbucket.org/snapmartinc/redis-queue
+- package: github.com/best-expendables/redis-queue
   version: x.x.x
 ```
 

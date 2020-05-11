@@ -1,7 +1,7 @@
 package redisqueue_test
 
 import (
-	"bitbucket.org/snapmartinc/rmq"
+	"github.com/best-expendables/rmq"
 	redisqueue "redis-queue"
 	"testing"
 	"time"

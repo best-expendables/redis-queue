@@ -1,13 +1,13 @@
-module bitbucket.org/snapmartinc/redis-queue
+module github.com/best-expendables/redis-queue
 
 go 1.12
 
 require (
-	bitbucket.org/snapmartinc/logger v0.0.0-20190722102907-70e1fed01587
-	bitbucket.org/snapmartinc/newrelic-context v0.0.0-20200409044035-f2f1104d3d60
-	bitbucket.org/snapmartinc/rmq v0.0.0-20200409065215-ff4420b32ec9
-	bitbucket.org/snapmartinc/trace v0.0.0-20190925102910-0918afc8a51f
-	bitbucket.org/snapmartinc/user-service-client v0.0.0-20190722090724-5a6f104cf969
+	github.com/best-expendables/logger v0.0.0-20200511084842-8247cf6c59bd
+	github.com/best-expendables/newrelic-context v0.0.0-20200511063616-30c11d5c3de9
+	github.com/best-expendables/rmq v0.0.0-20200511083115-73e0fa65d39a
+	github.com/best-expendables/trace v0.0.0-20200511055751-fb29d033fd2d
+	github.com/best-expendables/user-service-client v0.0.0-20200511060456-3fcf8ea240f5
 	github.com/denisenkom/go-mssqldb v0.0.0-20190924004331-208c0a498538 // indirect
 	github.com/go-redis/redis/v8 v8.0.0-alpha.1
 	github.com/gofrs/uuid v3.2.0+incompatible
