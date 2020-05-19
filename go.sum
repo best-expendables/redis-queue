@@ -24,8 +24,8 @@ github.com/best-expendables/logger v0.0.0-20200511084842-8247cf6c59bd h1:fEL4ZK5
 github.com/best-expendables/logger v0.0.0-20200511084842-8247cf6c59bd/go.mod h1:eYlLgmVaUmoZqRwEEhYvmMbWJQnYBmnZyoyfyrxYCcI=
 github.com/best-expendables/newrelic-context v0.0.0-20200519100847-e4fe02cf0e14 h1:9W9jmBTngwkM1R4OQbrA4BNezKJSB3NR2NV/NJ17CH0=
 github.com/best-expendables/newrelic-context v0.0.0-20200519100847-e4fe02cf0e14/go.mod h1:+/B6sT/giLoJ9MskFidSFymZaW8kLa+03vH6zW0tLrs=
-github.com/best-expendables/rmq v0.0.0-20200511083115-73e0fa65d39a h1:AKqstDCrdFbiXDsbWPHSrTJ2B2+DXIWX2Jkrn7URYzg=
-github.com/best-expendables/rmq v0.0.0-20200511083115-73e0fa65d39a/go.mod h1:6geYSqiR4tQqEDauRoKzxpCGF5y2fDPCEYX7c+doXmA=
+github.com/best-expendables/rmq v0.0.0-20200519100813-3d75a614c42b h1:BRxiodV25OmJl2aEurlIMB4ZxouFLN0mgOc47wXSTl8=
+github.com/best-expendables/rmq v0.0.0-20200519100813-3d75a614c42b/go.mod h1:VC2anYpLJGnfEX01wHxOszWnukjX1Nj1Bgw0XsJMUTo=
 github.com/best-expendables/trace v0.0.0-20200511055751-fb29d033fd2d h1:9psr1F749IL8fKbHoMBmeKYGIDJhM6YS1dkuGTbDToE=
 github.com/best-expendables/trace v0.0.0-20200511055751-fb29d033fd2d/go.mod h1:BfGZXZDuPEIqA9nTAFZ4ZIXqmGfPQYtyQciTxYShalw=
 github.com/best-expendables/user-service-client v0.0.0-20200511060456-3fcf8ea240f5 h1:4+o4lLRJ04zj/4rzaMXEp1caclpoWnjUL2hpNgf2qHI=
@@ -55,8 +55,6 @@ github.com/fsnotify/fsnotify v1.4.7 h1:IXs+QLmnXW2CcXuY+8Mzv/fWEsPGWxqefPtCP5CnV
 github.com/fsnotify/fsnotify v1.4.7/go.mod h1:jwhsz4b93w/PPRr/qN1Yymfu8t87LnFCMoQvtojpjFo=
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
 github.com/go-logfmt/logfmt v0.3.0/go.mod h1:Qt1PoO58o5twSAckw1HlFXLmHsOX5/0LbT9GBnD5lWE=
-github.com/go-redis/redis/v8 v8.0.0-alpha.1 h1:k4FKdii/805VPgj5TJNxQFh9dSGMGrFnqR96lbjnknw=
-github.com/go-redis/redis/v8 v8.0.0-alpha.1/go.mod h1:+hwv7JG0ylvt8XVSPXgraCf5Jy+6ZtklOU6L1S8gLSY=
 github.com/go-redis/redis/v8 v8.0.0-beta.1 h1:UwMAfXj88ndbdxE0/miTXnwGa3xGFnHJflliKkQedVo=
 github.com/go-redis/redis/v8 v8.0.0-beta.1/go.mod h1:o1M7JtsgfDYyv3o+gBn/jJ1LkqpnCrmil7PSppZGBak=
 github.com/go-sql-driver/mysql v1.4.1 h1:g24URVg0OFbNUTx9qqY1IRZ9D9z3iPyi5zKhQZpNwpA=
@@ -158,8 +156,6 @@ github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81P
 github.com/yuin/gopher-lua v0.0.0-20190514113301-1cd887cd7036 h1:1b6PAtenNyhsmo/NKXVe34h7JEZKva1YB/ne7K7mqKM=
 github.com/yuin/gopher-lua v0.0.0-20190514113301-1cd887cd7036/go.mod h1:gqRgreBUhTSL0GeU64rtZ3Uq3wtjOa/TB2YfrtkCbVQ=
 go.opencensus.io v0.20.1/go.mod h1:6WKK9ahsWS3RSO+PY9ZHZUfv2irvY6gN279GOPZjmmk=
-go.opentelemetry.io/otel v0.2.4-0.20200313034849-fcc4aca8c78d h1:VDDfUPYIDsLOnr0a/xN5rY3cGs4iSAm6sSN700nQkf0=
-go.opentelemetry.io/otel v0.2.4-0.20200313034849-fcc4aca8c78d/go.mod h1:OgNpQOjrlt33Ew6Ds0mGjmcTQg/rhUctsbkRdk/g1fw=
 go.opentelemetry.io/otel v0.5.0 h1:tdIR1veg/z+VRJaw/6SIxz+QX3l+m+BDleYLTs+GC1g=
 go.opentelemetry.io/otel v0.5.0/go.mod h1:jzBIgIzK43Iu1BpDAXwqOd6UPsSAk+ewVZ5ofSXw4Ek=
 golang.org/x/crypto v0.0.0-20180904163835-0709b304e793/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
